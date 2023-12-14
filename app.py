@@ -60,18 +60,6 @@ from database import (
 
 from flask_swagger_ui import get_swaggerui_blueprint
 
-from package_API_SGTD import (
-    get_participants,
-    remove_empty,
-    convert_keys_to_nested_structure,
-    convert_values,
-    cleanup_PUSH_JSON,
-    process_file,
-    create_folder_and_package,
-    open_file_dialog,
-    get_system_data,
-)
-
 app = Flask(__name__)
 
 # app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://admin:adminAWS@sgtd-digital-enablement-db.cbqefwsjozfo.ap-southeast-1.rds.amazonaws.com/sgtd"
