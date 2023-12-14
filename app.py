@@ -13,14 +13,12 @@ from flask_sqlalchemy import SQLAlchemy
 
 from flask_mysqldb import MySQL
 from sqlalchemy import create_engine, text
-import re
 import requests
 import json
-import threading
+
 
 from datetime import datetime, timedelta
 import pandas as pd
-import leafmap.foliumap as leafmap
 import time
 import os
 
