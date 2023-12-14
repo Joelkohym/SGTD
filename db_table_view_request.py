@@ -118,126 +118,136 @@ def get_data_from_vessel_due_to_arrive_and_depart():
     return merged_df
 
 
-def merge_arrivedepart_VF_df(
-  filtered_arrive_depart_MPA_df, VF_Single_Vessel_Positions_df
-):
-  # Merge Declaration_df with filtered_df
-  print(
-      f"db_table_view_request.py filtered_arrive_depart_MPA_df = {filtered_arrive_depart_MPA_df}"
-  )
-  # filtered_arrive_depart_MPA_df.to_excel(
-  #     "table view filtered_arrive_depart_MPA_df.xlsx"
-  # )
-  print(
-      f"db_table_view_request.py VF_Single_Vessel_Positions_df = {VF_Single_Vessel_Positions_df}"
-  )
-  # VF_Single_Vessel_Positions_df.to_excel(
-  #     "table view VF_Single_Vessel_Positions_df.xlsx"
-  # )
+    def merge_arrivedepart_VF_df(
+      filtered_arrive_depart_MPA_df, VF_Single_Vessel_Positions_df
+    ):
+      # Merge Declaration_df with filtered_df
+      print(
+          f"db_table_view_request.py filtered_arrive_depart_MPA_df = {filtered_arrive_depart_MPA_df}"
+      )
+      # filtered_arrive_depart_MPA_df.to_excel(
+      #     "table view filtered_arrive_depart_MPA_df.xlsx"
+      # )
+      print(
+          f"db_table_view_request.py VF_Single_Vessel_Positions_df = {VF_Single_Vessel_Positions_df}"
+      )
+      # VF_Single_Vessel_Positions_df.to_excel(
+      #     "table view VF_Single_Vessel_Positions_df.xlsx"
+      # )
 
-  # rename column name from vesselParticulars.imoNumber to imoNumber for filtered_arrive_depart_MPA_df
-  filtered_arrive_depart_MPA_df.rename(
-      columns={
-          "vesselParticulars.imoNumber": "imoNumber",
-          "duetoArriveTime": "ETA - MPA",
-          "dueToDepart": "ETD - MPA",
-          "vesselParticulars.flag_x": "flag",
-      },
-      inplace=True,
-  )
-  filtered_arrive_depart_MPA_df["imoNumber"] = filtered_arrive_depart_MPA_df[
-      "imoNumber"
-  ].astype(int)
-  VF_Single_Vessel_Positions_df["imoNumber"] = VF_Single_Vessel_Positions_df[
-      "imoNumber"
-  ].astype(int)
-  VF_Single_Vessel_Positions_df.rename(
-      columns={
-          "ETA": "ETA - VesselFinder",
-      },
-      inplace=True,
-  )
-
-  Final_df = VF_Single_Vessel_Positions_df.merge(
-      filtered_arrive_depart_MPA_df,
-      how="outer",
-      on="imoNumber",
-  )
-  print(f"db_table_view_request.py Final df = {Final_df}")
-  # Reorder columns in place
-  desired_column_order = [
-      "imoNumber",
-      "NAME",
-      "DESTINATION",
-      "ETA - VesselFinder",
-      "ETA - MPA",
-      "ETD - MPA",
-      "callSign",
-      "flag",
-      "speed",
-      "timeStamp",
-  ]
-  Final_df = Final_df[desired_column_order]
-  print(f"Final_df = {Final_df}")
-  filtered_df = Final_df
-  timestamp_str = filtered_df["ETA - VesselFinder"]
-  timestamp = datetime.strptime(timestamp_str, "%Y-%m-%d %H:%M:%S UTC")
-  # Add 8 hours to the timestamp
-  new_timestamp = timestamp + timedelta(hours=8)
-  print(
-      f"db_table_view_request.py: get_data_from_VF_vessels(imo_list): New timestamp = {new_timestamp}"
-  )
-  # Format the new timestamp back into the desired string format
-  new_timestamp_str = new_timestamp.strftime("%Y-%m-%d %H:%M:%S")
-  print(
-      f"db_table_view_request.py: get_data_from_VF_vessels(imo_list): new_timestamp_str = {new_timestamp_str}"
-  )
-  filtered_df["ETA - VesselFinder"] = new_timestamp_str
-  with open("templates/Banner table.html", "r") as file:
-      menu_banner_html = file.read()
-
-  if filtered_df.empty:
-      print(f"Empty table_df................")
-      current_datetime = datetime.now().strftime("%Y%m%d%H%M%S")
-      for f in os.listdir("templates/"):
-          # print(f)
-          if "mytable.html" in f:
-              print(f"*mytable.html file to be removed = {f}")
-              os.remove(f"templates/{f}")
-      return 1  # render_template("table_view.html")
-  else:
-      for f in os.listdir("templates/"):
-          # print(f)
-          if "mytable.html" in f:
-              print(f"*mytable.html file to be removed = {f}")
-              os.remove(f"templates/{f}")
-      current_datetime = datetime.now().strftime("%Y%m%d%H%M%S")
-      newHTML = rf"templates/{current_datetime}mytable.html"
-      filtered_df.index = filtered_df.index + 1
-      filtered_df.to_html(newHTML)
-      with open(newHTML, "r") as file:
-          html_content = file.read()
-      # Add the menu banner HTML code to the beginning of the file
-      html_content = menu_banner_html + html_content
-
-      # Try new method
-      html_content = html_content.replace(
-          f'<table border="1" class="dataframe">',
-          f'<table id="example" class="table table-striped table-bordered">',
+      # rename column name from vesselParticulars.imoNumber to imoNumber for filtered_arrive_depart_MPA_df
+      filtered_arrive_depart_MPA_df.rename(
+          columns={
+              "vesselParticulars.imoNumber": "imoNumber",
+              "duetoArriveTime": "ETA - MPA",
+              "dueToDepart": "ETD - MPA",
+              "vesselParticulars.flag_x": "flag",
+          },
+          inplace=True,
+      )
+      filtered_arrive_depart_MPA_df["imoNumber"] = filtered_arrive_depart_MPA_df[
+          "imoNumber"
+      ].astype(int)
+      VF_Single_Vessel_Positions_df["imoNumber"] = VF_Single_Vessel_Positions_df[
+          "imoNumber"
+      ].astype(int)
+      VF_Single_Vessel_Positions_df.rename(
+          columns={
+              "ETA": "ETA - VesselFinder",
+          },
+          inplace=True,
       )
 
-      html_content = html_content.replace(
-          f"<thead>",
-          f'<thead class="table-dark">',
+      Final_df = VF_Single_Vessel_Positions_df.merge(
+          filtered_arrive_depart_MPA_df,
+          how="outer",
+          on="imoNumber",
       )
-      html_content = html_content.replace(
-          f"</table>",
-          f'</table></div></div></div></div><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script><script src="/static/js/bootstrap.bundle.min.js"></script><script src="/static/js/jquery-3.6.0.min.js"></script><script src="/static/js/datatables.min.js"></script><script src="/static/js/pdfmake.min.js"></script><script src="/static/js/vfs_fonts.js"></script><script src="/static/js/custom.js"></script></body></html>',
+      print(f"db_table_view_request.py Final df = {Final_df}")
+      # Reorder columns in place
+      desired_column_order = [
+          "imoNumber",
+          "NAME",
+          "DESTINATION",
+          "ETA - VesselFinder",
+          "ETA - MPA",
+          "ETD - MPA",
+          "callSign",
+          "flag",
+          "speed",
+          "timeStamp",
+      ]
+      Final_df = Final_df[desired_column_order]
+      print(f"Final_df = {Final_df}")
+      filtered_df = Final_df
+      # Convert the entire column to datetime format
+      filtered_df["ETA - VesselFinder"] = pd.to_datetime(
+          filtered_df["ETA - VesselFinder"], errors="coerce"
       )
 
-      # Write the modified HTML content back to the file
-      with open(newHTML, "w") as file:
-          file.write(html_content)
-      print("it has reached here ===================")
-      newHTMLrender = f"{current_datetime}mytable.html"
-      return newHTMLrender
+      # Add 8 hours to the timestamp
+      filtered_df["ETA - VesselFinder"] = filtered_df["ETA - VesselFinder"] + timedelta(
+          hours=8
+      )
+
+      # Format the new timestamps back into the desired string format
+      filtered_df["ETA - VesselFinder"] = filtered_df["ETA - VesselFinder"].dt.strftime(
+          "%Y-%m-%d %H:%M:%S"
+      )
+
+      filtered_df["timeStamp"] = pd.to_datetime(filtered_df["timeStamp"], errors="coerce")
+
+      # Add 8 hours to the timestamp
+      filtered_df["timeStamp"] = filtered_df["timeStamp"] + timedelta(hours=8)
+
+      # Format the new timestamps back into the desired string format
+      filtered_df["timeStamp"] = filtered_df["timeStamp"].dt.strftime("%Y-%m-%d %H:%M:%S")
+
+      with open("templates/Banner table.html", "r") as file:
+          menu_banner_html = file.read()
+
+      if filtered_df.empty:
+          print(f"Empty table_df................")
+          current_datetime = datetime.now().strftime("%Y%m%d%H%M%S")
+          for f in os.listdir("templates/"):
+              # print(f)
+              if "mytable.html" in f:
+                  print(f"*mytable.html file to be removed = {f}")
+                  os.remove(f"templates/{f}")
+          return 1  # render_template("table_view.html")
+      else:
+          for f in os.listdir("templates/"):
+              # print(f)
+              if "mytable.html" in f:
+                  print(f"*mytable.html file to be removed = {f}")
+                  os.remove(f"templates/{f}")
+          current_datetime = datetime.now().strftime("%Y%m%d%H%M%S")
+          newHTML = rf"templates/{current_datetime}mytable.html"
+          filtered_df.index = filtered_df.index + 1
+          filtered_df.to_html(newHTML)
+          with open(newHTML, "r") as file:
+              html_content = file.read()
+          # Add the menu banner HTML code to the beginning of the file
+          html_content = menu_banner_html + html_content
+
+          # Try new method
+          html_content = html_content.replace(
+              f'<table border="1" class="dataframe">',
+              f'<table id="example" class="table table-striped table-bordered">',
+          )
+
+          html_content = html_content.replace(
+              f"<thead>",
+              f'<thead class="table-dark">',
+          )
+          html_content = html_content.replace(
+              f"</table>",
+              f'</table></div></div></div></div><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script><script src="/static/js/bootstrap.bundle.min.js"></script><script src="/static/js/jquery-3.6.0.min.js"></script><script src="/static/js/datatables.min.js"></script><script src="/static/js/pdfmake.min.js"></script><script src="/static/js/vfs_fonts.js"></script><script src="/static/js/custom.js"></script></body></html>',
+          )
+
+          # Write the modified HTML content back to the file
+          with open(newHTML, "w") as file:
+              file.write(html_content)
+          print("it has reached here ===================")
+          newHTMLrender = f"{current_datetime}mytable.html"
+          return newHTMLrender
