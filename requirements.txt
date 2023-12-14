@@ -1,0 +1,14 @@
+Flask
+gunicorn
+requests
+pygsheets
+pandas
+leafmap
+geopandas
+sqlalchemy
+pymysql
+Flask-MySQLdb
+pytz
+folium
+flask-swagger-ui
+fastapi

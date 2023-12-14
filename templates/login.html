@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Design by foolishdeveloper.com -->
+    <title>SGTraDex Vessel Query Login</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <!--Stylesheet-->
+    <style media="screen">
+        *,
+        *:before,
+        *:after {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .flex-container {
+            display: flex;
+            flex-direction: column; /* Stack children vertically */
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            padding: 0;
+            background: linear-gradient(to bottom, #1845ad, #b92f90);
+          }
+
+        body {
+            background: linear-gradient(to bottom, #1845ad, #b92f90);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Ensure the body takes up at least the full viewport height. */
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center items horizontally. */
+            text-align: center;
+            margin-top: 0px; /* Adjust the margin-top to move the container higher up the page. */
+        }
+
+
+        body img {
+          max-width: 50%; /* Adjust the maximum width for the image as a percentage of the screen width */
+          width: 100%; /* Ensure the image takes the full available width */
+          display: block;
+          margin: 0 auto;
+        }
+        form {
+            width: 400px;
+            background-color: rgba(255, 255, 255, 0.13);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+            padding: 50px 35px;
+        }
+
+    form * {
+      font-family: 'Poppins', sans-serif;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+      outline: none;
+      border: none;
+    }
+
+    form h3 {
+      font-size: 32px;
+      font-weight: 500;
+      line-height: 42px;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-top: 30px;
+      font-size: 16px;
+      font-weight: 500;
+      text-align: left;
+    }
+
+    input {
+      display: block;
+      height: 50px;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.07);
+      border-radius: 3px;
+      padding: 0 10px;
+      margin-top: 8px;
+      font-size: 14px;
+      font-weight: 300;
+    }
+
+    ::placeholder {
+      color: #e5e5e5;
+    }
+
+    button {
+      margin-top: 50px;
+      width: 100%;
+      padding: 15px 0;
+      font-size: 18px;
+      font-weight: 600;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button#loginButton {
+      background-color: #088f72;
+      color: #ffffff;
+    }
+
+    button#registerButton {
+      background-color: rgb(0, 0, 0);
+      color: #ffffff;
+      margin-top: 20px;
+    }
+
+
+    </style>
+</head>
+
+<body>
+<div class="flex-container">
+  <div class="container">
+    <div class="background">
+      <div class="shape"></div>
+      <div class="shape"></div>
+    </div>
+    <div class="header">
+      <img src="https://sgtradex.com/images/sgtradex-logo.svg" alt="SGTD Image">
+    </div>
+    <form id="loginForm" action="/login" method="post">
+      <h3>Login Here</h3>
+
+      <label for="email">Email</label>
+      <input type="text" placeholder="Email" id="email" name="email">
+
+      <label for="password">Password</label>
+      <input type="password" placeholder="Password" id="password" name="password">
+
+      <button type="button" id="loginButton">Log In</button>
+      <button type="button" id="registerButton">Register</button>
+    </form>
+  </div>
+</div>
+
+  <script>
+    var loginButton = document.getElementById("loginButton");
+    var loginForm = document.getElementById("loginForm");
+    var registerButton = document.getElementById("registerButton");
+
+
+
+    loginButton.addEventListener("click", function() {
+    //   // Submit the form programmatically
+    loginForm.submit();
+    });
+
+    registerButton.addEventListener("click", function() {
+      // Navigate to the "/register" page
+      window.location.href = "/register";
+    });
+  </script>
+</body>
+
+</html>
+<!-- loginButton.addEventListener("click", function() {
+  // Show terms and conditions popup
+  document.getElementById("termsPopup").style.display = "block";
+});
+// Add event listeners for popup buttons
+document.getElementById("confirmButton").addEventListener("click", function() {
+  // Submit the form programmatically
+  document.getElementById("loginForm").submit();
+});
+
+document.getElementById("exitButton").addEventListener("click", function() {
+  // Hide terms and conditions popup
+  document.getElementById("termsPopup").style.display = "none";
+}); -->

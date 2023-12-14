@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>SGTraDex Vessel Query Registration</title>
+  <link rel="stylesheet" href="/static/css/register.css">
+  <!-- Add your other CSS or JavaScript includes here -->
+</head>
+<body>
+   <div class="flex-container">
+  <div class="header">
+    <img src="https://sgtradex.com/images/sgtradex-logo.svg" alt="SGTD Image">
+  </div>
+  
+  <div class="container">
+    <div class="text">
+       Registration Form
+    </div>
+    <form action="/register" method="post"> <!-- Set action and method attributes -->
+      <div class="form-row">
+        <div class="input-data">
+           <input type="text" required name="email">
+           <div class="underline"></div>
+           <label for="">Email</label>
+        </div>
+        <div class="input-data">
+           <input type="text" required name="password">
+           <div class="underline"></div>
+           <label for="">Password</label>
+        </div>
+     </div>
+     <div class="form-row">
+        <div class="input-data">
+           <input type="text" required name="pitstop_url">
+           <div class="underline"></div>
+           <label for="">Pitstop URL</label>
+        </div>
+        <div class="input-data">
+           <input type="text" required name="api_key">
+           <div class="underline"></div>
+           <label for="">API Key</label>
+        </div>
+     </div>
+     <div class="form-row">
+        <div class="input-data">
+           <input type="text" required name="participant_id">
+           <div class="underline"></div>
+           <label for="">Participant ID</label>
+        </div>
+        <div class="input-data">
+           <input type="text" required name="gsheet_cred_path">
+           <div class="underline"></div>
+           <label for="">Database Credentials</label>
+        </div>
+     </div>
+       <div class="form-row submit-btn">
+          <div class="input-data">
+             <div class="inner"></div>
+             <input type="submit" value="Submit">
+          </div>
+       </div>
+           <!-- Add a "Redirect to Login Page" button -->
+
+    </form>
+    <div class="form-row justify-content-center">
+      <a href="/login" class="input-data">Redirect to Login Page</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+
+

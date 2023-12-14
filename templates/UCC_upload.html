@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Vessel Request Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!-- Bootstrap code for navigation template -->
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+    *,
+    *:before,
+    *:after {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    
+    /* Style for the navigation buttons */
+      /* Add z-index to bring navigation bar in front of shapes */
+      .navbar {
+        z-index: 2;
+        background-color: #413838 !important;
+      }
+
+  
+      .navbar img {
+        width: 120px; /* Adjust the width of the image as needed */
+        margin-right: 20px; /* Add margin to separate image from links */
+      }
+
+/* Style for the upload button */
+.upload-button {
+        color: #fff; /* Text color */
+        background-color: #c645c8; /* Background color */
+        padding: 10px 20px; /* Padding */
+        margin: 5px; /* Margin */
+        border: none; /* Remove border */
+        border-radius: 5px; /* Rounded corners */
+        text-decoration: none; /* Remove underline */
+        cursor: pointer; /* Add cursor pointer on hover */
+        transition: background-color 0.2s; /* Smooth transition for background color */
+    }
+    /* Change the upload button style on hover */
+.upload-button:hover {
+        background-color: #0056b3; /* New background color on hover */
+    }
+
+
+/* Style for the "Choose Files" input button */
+/* You can customize these styles as needed */
+input[type="file"] {
+    display: none; /* Hide the default file input button */
+}
+
+.custom-file-input {
+    color: #fff; /* Text color */
+    background-color: #c645c8; /* Background color */
+    padding: 10px 20px; /* Padding */
+    margin: 5px; /* Margin */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    text-decoration: none; /* Remove underline */
+    cursor: pointer; /* Add cursor pointer on hover */
+    transition: background-color 0.2s; /* Smooth transition for background color */
+}
+
+/* Style the custom file input label */
+.custom-file-input-label {
+    display: inline-block;
+    background-color: #c645c8;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+/* Change the custom file input label style on hover */
+.custom-file-input-label:hover {
+    background-color: #0056b3;
+}
+
+body {
+            background: linear-gradient(to bottom, #1845ad, #b92f90);
+            min-height: 100vh; /* Ensure the body takes up at least the full viewport height. */
+            margin: 0;
+            
+        }
+
+
+</style>
+  
+
+
+    <title>Upload Multiple files : GFG</title>
+</head>
+<body>
+
+      <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+              <img src="https://sgtradex.com/images/sgtradex-logo.svg" alt="SGTD Image">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class=" collapse navbar-collapse" id="navbarNavDropdown">
+              <ul class="navbar-nav ms-auto ">
+                <li class="nav-item">
+                  <a class="nav-link mx-2" aria-current="page" href="/table_view">Vessel ETA</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link mx-2" href="/vessel_request/1">Vessel Map</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link mx-2" href="/lbo_request/1">LBO Map</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link mx-2 active" href="#">Upload File</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link mx-2 dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Log In
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <li><a class="dropdown-item" href="/logout">Log Out</a></li>
+                    <li><a class="dropdown-item" href="/register">Register</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+          </nav>
+      
+      </header>
+      <h1>Participant Data</h1>
+      <form action="/submit" method="post">
+          <label for="participant_name">Select Participant:</label>
+          <select name="participant_name" id="participant_name">
+              {% for participant, data in participant_data.items() %}
+                  <option value="{{ participant }}">{{ participant }}</option>
+              {% endfor %}
+          </select>
+  
+          <br>
+  
+          <label for="data_element">Select Data Element:</label>
+          <select name="data_element" id="data_element">
+              <!-- Data elements for the selected participant will be populated here using JavaScript -->
+          </select>
+  
+          <br>
+  
+          <input type="submit" value="Submit">
+      </form>
+
+    <form action = "/api/triangular_upload/<data>" method="POST" enctype="multipart/form-data">
+    <label class="custom-file-input-label" for="fileInput">Choose Files</label>
+    <input type="file" id="fileInput" name="files[]" multiple class="custom-file-input" accept=".csv"  />
+    <input type="submit" value="Upload" class="upload-button">
+    </form>
+    <ul id="fileList"></ul>
+
+</body>
+
+
+    <script>
+
+  // Function to update the data elements based on the selected participant
+  const participantData = {{ participant_data | tojson | safe }};
+        const dataElementSelect = document.getElementById('data_element');
+        const participantSelect = document.getElementById('participant_name');
+
+        participantSelect.addEventListener('change', () => {
+            const selectedParticipant = participantSelect.value;
+            const dataElements = participantData[selectedParticipant];
+            dataElementSelect.innerHTML = '';
+
+            dataElements.forEach(dataElement => {
+                const option = document.createElement('option');
+                option.value = dataElement.data_element;
+                option.textContent = dataElement.data_element;
+                dataElementSelect.appendChild(option);
+            });
+        });
+
+
+
+
+
+
+
+
+
+
+        // Function to update the list of selected files
+        function updateFileList() {
+            const fileList = document.getElementById('fileList');
+            const fileInput = document.getElementById('fileInput');
+            fileList.innerHTML = ''; // Clear the existing list
+    
+            for (const file of fileInput.files) {
+                const listItem = document.createElement('li');
+                listItem.textContent = file.name;
+                fileList.appendChild(listItem);
+            }
+        }
+    
+        // Listen for changes in the file input
+        const fileInput = document.getElementById('fileInput');
+        fileInput.addEventListener('change', updateFileList);
+        
+    </script>
+
+</html>
