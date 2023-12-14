@@ -208,6 +208,11 @@
   z-index: 1000;
   pointer-events: none;
 }
+  .scrollable-paragraph {
+    max-height: 200px; /* Set the maximum height for the paragraph */
+    overflow-y: auto; /* Enable vertical scrolling if the content overflows the specified height */
+    padding: 10px; /* Optional: Add padding for better aesthetics */
+  }
   </style>
   
 </head>
@@ -276,6 +281,7 @@
     <div class="overlay"></div>
     <div id="termsPopup" style="display: none;">
       <h3>Terms and Conditions</h3>
+      <div class="scrollable-paragraph">
       <p>**Terms and Conditions of Using XYZ Web Application**
 
         Welcome to XYZ Web Application ("we," "our," or "us"). Before you start using our web application, please carefully read and understand the following Terms and Conditions ("Terms"). By accessing or using our web application, you agree to comply with and be bound by these Terms. If you do not agree with any part of these Terms, please do not use our web application.
@@ -333,7 +339,7 @@
 
         If you have any questions about these Terms, please contact us at [contact@email.com].
 
-        By using XYZ Web Application, you agree to abide by these Terms and Conditions. Thank you for choosing XYZ Web Application.</p>
+        By using XYZ Web Application, you agree to abide by these Terms and Conditions. Thank you for choosing XYZ Web Application.</p></div>
       <button id="confirmButton">Agree</button>
       <button id="exitButton">Exit</button>
     </div>
