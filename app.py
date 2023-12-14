@@ -60,7 +60,7 @@ from database import (
 
 from flask_swagger_ui import get_swaggerui_blueprint
 
-app = Flask(__name__)
+application = app = Flask(__name__)
 
 # app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://admin:adminAWS@sgtd-digital-enablement-db.cbqefwsjozfo.ap-southeast-1.rds.amazonaws.com/sgtd"
 # app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
