@@ -13,7 +13,7 @@ def get_data_from_VF_single_vessel_positions(imo_list):
     print("Start of get_data_from_single_vessel_positions.............")
     print(f"input_list = {imo_list}")
 
-    api_key = "WS-00555FCD-8CD037"
+    api_key = os.environ['VF_API_KEY']
 
     base_url = f"https://api.vesselfinder.com/vessels?userkey={api_key}"
 
