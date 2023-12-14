@@ -247,6 +247,11 @@ def table_view_request(imo):
                 f"app.py: table_view_request(imo): filtered_arrive_depart_MPA = {filtered_arrive_depart_MPA_df}"
             )
 
+            # =================== Validate arrive_depart_MPA_df NOT empty ===============
+            if filtered_arrive_depart_MPA_df.empty:
+                msg = "No arrival data from MPA."
+                return render_template("table_view.html", msg=msg), 404
+
             # ======================== START VESSEL FINDER API =============
             VF_Single_Vessel_Positions_df = get_data_from_VF_single_vessel_positions(
                 imo
