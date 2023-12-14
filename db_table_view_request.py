@@ -180,7 +180,19 @@ def merge_arrivedepart_VF_df(
   Final_df = Final_df[desired_column_order]
   print(f"Final_df = {Final_df}")
   filtered_df = Final_df
-
+  timestamp_str = filtered_df["ETA - VesselFinder"]
+  timestamp = datetime.strptime(timestamp_str, "%Y-%m-%d %H:%M:%S UTC")
+  # Add 8 hours to the timestamp
+  new_timestamp = timestamp + timedelta(hours=8)
+  print(
+      f"db_table_view_request.py: get_data_from_VF_vessels(imo_list): New timestamp = {new_timestamp}"
+  )
+  # Format the new timestamp back into the desired string format
+  new_timestamp_str = new_timestamp.strftime("%Y-%m-%d %H:%M:%S")
+  print(
+      f"db_table_view_request.py: get_data_from_VF_vessels(imo_list): new_timestamp_str = {new_timestamp_str}"
+  )
+  filtered_df["ETA - VesselFinder"] = new_timestamp_str
   with open("templates/Banner table.html", "r") as file:
       menu_banner_html = file.read()
 
