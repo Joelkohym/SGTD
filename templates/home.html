@@ -12,7 +12,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
   
-
   <!--Stylesheet-->
   <style media="screen">
     *,
@@ -158,6 +157,62 @@
       color: #ffffff;
     }
 
+    #termsPopup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        z-index: 1001;
+    }
+
+    #termsPopup h3 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    #termsPopup p {
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+
+    #termsPopup button {
+        padding: 10px 20px;
+        margin-right: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        z-index: 1001
+    }
+
+    #termsPopup #confirmButton {
+        background-color: #088f72;
+        color: #fff;
+    }
+
+    #termsPopup #exitButton {
+        background-color: #333;
+        color: #fff;
+    }
+  .overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  pointer-events: none;
+}
+  .scrollable-paragraph {
+    max-height: 200px; /* Set the maximum height for the paragraph */
+    overflow-y: auto; /* Enable vertical scrolling if the content overflows the specified height */
+    padding: 10px; /* Optional: Add padding for better aesthetics */
+  }
   </style>
   
 </head>
@@ -175,15 +230,15 @@
       <div class=" collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ms-auto ">
           <li class="nav-item">
-            <a class="nav-link mx-2 active" href="/home">Vessel Position</a>
+            <a class="nav-link mx-2 active" href="/lbo_request/1">Vessel Position</a>
           </li>
           <li class="nav-item">
             <a class="nav-link mx-2" aria-current="page" href="/table_view">Vessel ETA</a>
           </li>
 
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link mx-2" href="/UCC_upload">Upload File</a>
-          </li>
+          </li> -->
           <li class="nav-item dropdown">
             <a class="nav-link mx-2 dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Log In
@@ -220,13 +275,133 @@
     <button type="button" id="tokenButton">Get Token</button>
   </form>
   
+    <!-- show popup -->
+    <!-- Popup HTML -->
+    {% if login_status == True %}
+    <div class="overlay"></div>
+    <div id="termsPopup" style="display: none;">
+      <h3>Terms and Conditions</h3>
+      <div class="scrollable-paragraph">
+      <p>**Terms and Conditions of Using XYZ Web Application**
+
+        Welcome to XYZ Web Application ("we," "our," or "us"). Before you start using our web application, please carefully read and understand the following Terms and Conditions ("Terms"). By accessing or using our web application, you agree to comply with and be bound by these Terms. If you do not agree with any part of these Terms, please do not use our web application.
+
+        **1. Acceptance of Terms**
+
+        By accessing or using XYZ Web Application, you acknowledge that you have read, understood, and agree to be bound by these Terms. These Terms constitute a legally binding agreement between you and XYZ Web Application.
+
+        **2. Changes to Terms**
+
+        We reserve the right to update, modify, or change these Terms at any time without prior notice. It is your responsibility to review these Terms periodically. Your continued use of our web application after any changes will constitute acceptance of those changes.
+
+        **3. Use of the Web Application**
+
+        You agree to use XYZ Web Application for lawful purposes and in a way that does not infringe on the rights of any third party. You are solely responsible for all content and information you submit to the web application.
+
+        **4. User Accounts**
+
+        To access certain features of our web application, you may need to create a user account. You are responsible for maintaining the confidentiality of your account information, including your username and password. You agree to notify us immediately of any unauthorized use of your account.
+
+        **5. Privacy**
+
+        Your use of XYZ Web Application is also governed by our Privacy Policy, which can be found [here](#). Please review the Privacy Policy to understand our practices.
+
+        **6. Intellectual Property**
+
+        All content and materials available on XYZ Web Application, including but not limited to text, graphics, logos, button icons, images, audio clips, and data compilations, are the property of XYZ Web Application and are protected by copyright and other intellectual property laws.
+
+        **7. Prohibited Conduct**
+
+        You agree not to:
+
+           a. Use our web application for any unlawful purpose.
+           b. Attempt to gain unauthorized access to any part of the web application.
+           c. Transmit any viruses, worms, or any code that may harm our web application or interfere with its functionality.
+           d. Modify, adapt, sublicense, translate, sell, reverse engineer, decompile, or disassemble any portion of our web application.
+
+        **8. Termination**
+
+        We reserve the right to terminate or suspend your access to XYZ Web Application without notice, for any reason, including but not limited to a breach of these Terms.
+
+        **9. Limitation of Liability**
+
+        In no event shall XYZ Web Application or its affiliates be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues.
+
+        **10. Indemnification**
+
+        You agree to indemnify and hold XYZ Web Application and its affiliates harmless from and against any and all claims, liabilities, damages, losses, and expenses arising out of or in any way connected with your use of our web application.
+
+        **11. Governing Law**
+
+        These Terms are governed by and construed in accordance with the laws of [your jurisdiction], without regard to its conflict of law principles.
+
+        **12. Contact Information**
+
+        If you have any questions about these Terms, please contact us at [contact@email.com].
+
+        By using XYZ Web Application, you agree to abide by these Terms and Conditions. Thank you for choosing XYZ Web Application.</p></div>
+      <button id="confirmButton">Agree</button>
+      <button id="exitButton">Exit</button>
+    </div>
+    {% endif %}
 <!-- ... (Your existing head and body tags) ... -->
 
 <script>
 
+var overlay = document.querySelector('.overlay');
 var imeiButton = document.getElementById("imeiButton");
 var imeiForm = document.getElementById("imeiForm");
 var tokenButton = document.getElementById("tokenButton");
+var agreeButton = document.getElementById("confirmButton");
+var exitButton = document.getElementById("exitButton");
+
+// Show popup
+document.getElementById("termsPopup").style.display = "block";
+overlay.style.display = "block";
+
+// Disable navigation when the popup is displayed
+disableNavigation();
+
+// Function to disable navigation links
+function disableNavigation() {
+  var navLinks = document.querySelectorAll('.navbar-nav a');
+  navLinks.forEach(function(link) {
+    link.style.pointerEvents = 'none';
+  });
+  imeiButton.disabled = true;
+  tokenButton.disabled = true;
+}
+
+// Function to enable navigation links
+function enableNavigation() {
+  var navLinks = document.querySelectorAll('.navbar-nav a');
+  navLinks.forEach(function(link) {
+    link.style.pointerEvents = 'auto';
+  });
+  imeiButton.disabled = false;
+  tokenButton.disabled = false;
+}
+
+
+// Add event listeners 
+agreeButton.addEventListener("click", function() {
+  document.getElementById("termsPopup").style.display = "none";
+  overlay.style.background = "rgba(255, 255, 255, 1)"
+  overlay.style.display = "none"; // Hide the overlay
+  enableNavigation(); // Enable navigation after agreeing
+});
+
+exitButton.addEventListener("click", function() {
+  document.getElementById("termsPopup").style.display = "none";
+  overlay.style.display = "none"; // Hide the overlay
+  window.location.href = "/logout";
+  enableNavigation();
+});
+
+overlay.addEventListener('click', function() {
+  // Disable navigation when the overlay is clicked
+  disableNavigation();
+});
 
 
 imeiButton.addEventListener("click", function() {
