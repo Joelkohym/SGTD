@@ -425,7 +425,7 @@ def merge_MPA_vessel_data_df_ETA_df(MPA_vessel_data_df, ETA_df):
     print(
         f"db_Vessel_map.py: merge_MPA_vessel_data_df_ETA_df(MPA_vessel_data_df, ETA_df): MPA_vessel_data_df merged ETA_df = {MPA_vessel_data_df_ETA_df}"
     )
-    MPA_vessel_data_df_ETA_df.to_excel("final_df_ETA_df.xlsx")
+    # MPA_vessel_data_df_ETA_df.to_excel("final_df_ETA_df.xlsx")
     MPA_vessel_data_df_ETA_df.rename(
         columns={
             "vesselName": "NAME",
@@ -493,8 +493,8 @@ def merged_MPA_VF_ETA_df(MPA_vessel_data_df, VF_df, ETA_df):
         f"db_Vessel_map.py: merged_MPA_VF_ETA_df(final_df, VF_df, ETA_df): MPA_vessel_data_df renamed = {MPA_vessel_data_df}"
     )
 
-    ETA_df.to_excel("ETA_df.xlsx")
-    MPA_vessel_data_df.to_excel("MPA_vessel_location_data_df..xlsx")
+    # ETA_df.to_excel("ETA_df.xlsx")
+    # MPA_vessel_data_df.to_excel("MPA_vessel_location_data_df.xlsx")
 
     MPA_vessel_data_df["imoNumber"] = MPA_vessel_data_df["imoNumber"].astype(int)
     VF_df["imoNumber"] = VF_df["imoNumber"].astype(int)
@@ -519,10 +519,10 @@ def merged_MPA_VF_ETA_df(MPA_vessel_data_df, VF_df, ETA_df):
     Final_df = VF_ETA_df.merge(
         MPA_vessel_data_df, how="outer", on="imoNumber", suffixes=("VF", "_y")
     )
-    Final_df.to_excel("Merged before drop Final_df.xlsx")
+    # Final_df.to_excel("Merged before drop Final_df.xlsx")
     Final_df = Final_df.apply(update_row, axis=1)
 
-    Final_df.to_excel("Final_df.xlsx")
+    # Final_df.to_excel("Final_df.xlsx")
     print(
         f"db_Vessel_map.py: merged_MPA_VF_ETA_df(final_df, VF_df, ETA_df): Final_df = {Final_df}"
     )
